@@ -1,14 +1,25 @@
-import {createServer} from 'http';
-import { url } from 'inspector';
+import express from "express";
 
-const server = createServer((req, res) => {
-    console.log({metodo: req.method});
-    console.log({url: req.url});
-    console.log({headers: req.headers});
-    console.log("Mensaje en Servidor");
-    res.end("Mensaje al Usuario");
+const PORT = 3000;
+const app = express();
+
+app.use(express.json());
+
+app.get("/", (req, res) => {
+    res.send("<h1>hello world</h1>");
 });
 
-server.listen(3000,() => {
-    console.log("Servidor escuchando en el puerto 3000");
+app.get("/cars", (req, res) => {
+    const body = req.body;
+    console.log(body);
+    res.send(body);
+});
+
+app.get("/cars/:id/:idsub", (req, res) => {
+    const { id, idsub } = req.params;
+    res.send(`id: ${id} idsub: ${idsub}`);
+});
+
+app.listen(PORT, () => {
+    console.log(`listening on port ${PORT}`);
 })
