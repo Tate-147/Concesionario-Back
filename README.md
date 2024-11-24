@@ -1,4 +1,4 @@
-# Proyecto de Programación Web - Aplicación SPA con React
+# Proy. de Programación Web - Aplicación SPA con React
 
 Este proyecto es una API RESTful desarrollada con Node.js y Express. Permite realizar operaciones CRUD sobre dos entidades: una principal y una de soporte. El proyecto incluye autenticación, validación de datos y manejo de errores centralizado.
 
