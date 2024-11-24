@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import routerCars from "./router/routerCar.js";
 import routerSellers from "./router/routerSeller.js";
 import swaggerUi from "swagger-ui-express";
-import swaggerDocument from "./swagger.json" assert { type: "json" };
+import swaggerDocument from "./swagger.json" with { type: "json" };
 
 env.config()
 const PORT = process.env.PORT || 3000;
