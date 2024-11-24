@@ -11,7 +11,12 @@ export const getCar = async (id) => {
     return car;
 };
 
-export const createCar = async (brand, model, color, year, description, price, urlToImage) => {
+export const getCarSeller = async (id) => {
+    const car = await Car.findOne({id:id}).populate("seller");
+    return car;
+};
+
+export const createCar = async (brand, model, color, year, description, price, urlToImage, seller) => {
     const car = {
         id: crypto.randomUUID(),
         brand: brand,
@@ -20,7 +25,8 @@ export const createCar = async (brand, model, color, year, description, price, u
         year: year,
         description: description,
         price: price,
-        urlToImage: urlToImage
+        urlToImage: urlToImage,
+        seller: seller
     };
     const newCar = await Car.create(car);
     return newCar;

@@ -3,6 +3,9 @@ import cors from "cors";
 import env from "dotenv";
 import mongoose from "mongoose";
 import routerCars from "./router/routerCar.js";
+import routerSellers from "./router/routerSeller.js";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "./swagger.json" assert { type: "json" };
 
 env.config()
 const PORT = process.env.PORT || 3000;
@@ -14,6 +17,8 @@ app.use(cors());
 
 // Routers
 app.use("/cars", routerCars);
+app.use("/sellers", routerSellers);
+app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Database
 mongoose.connect(process.env.MONGO_URL)

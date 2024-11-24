@@ -1,0 +1,324 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API RESTful - Concesionario de Autos",
+        "version": "1.0.0",
+        "description": "Este proyecto es una API RESTful desarrollada con Node.js y Express. Permite realizar operaciones CRUD sobre dos entidades: una principal y una de soporte. El proyecto incluye autenticación, validación de datos y manejo de errores centralizado."
+    },
+    "servers": [
+        {
+            "url": "https://concesionario-back.onrender.com/"
+        }
+    ],
+    "components": {
+        "schemas": {
+            "Cars": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "a3d4e5f6-7a8b-9c0d-1e2f-3a4b5c6d7e8f"
+                    },
+                    "brand": {
+                        "type": "string",
+                        "example": "Toyota"
+                    },
+                    "model": {
+                        "type": "string",
+                        "example": "Corolla"
+                    },
+                    "color": {
+                        "type": "string",
+                        "example": "Rojo"
+                    },
+                    "year": {
+                        "type": "integer",
+                        "example": 2021
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Auto de lujo"
+                    },
+                    "price": {
+                        "type": "number",
+                        "example": 10000
+                    },
+                    "urlToImage": {
+                        "type": "string",
+                        "example": "https://example.com/image.jpg"
+                    },
+                    "seller": {
+                        "type": "string",
+                        "format": "objectid",
+                        "example": "673a7583cf893b6e5935d23b"
+                    }
+                }
+            },
+            "Sellers": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "a3d4e5f6-7a8b-9c0d-1e2f-3a4b5c6d7e8f"
+                    },
+                    "lastname": {
+                        "type": "string",
+                        "example": "Perez"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Juan"
+                    },
+                    "address": {
+                        "type": "string",
+                        "example": "Calle 123"
+                    },
+                    "postcode": {
+                        "type": "string",
+                        "example": "12345"
+                    },
+                    "city": {
+                        "type": "string",
+                        "example": "Ciudad"
+                    },
+                    "province": {
+                        "type": "string",
+                        "example": "Provincia"
+                    },
+                    "country": {
+                        "type": "string",
+                        "example": "Pais"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "123456789"
+                    },
+                    "cellphone": {
+                        "type": "string",
+                        "example": "987654321"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "example@example.com"    
+                    }
+                }
+            }
+        }
+    },
+    "responses": {
+        "200": {
+            "description": "OK"
+        },
+        "400": {
+            "description": "Bad Request"            
+        },
+        "401": {
+            "description": "Unauthorized"   
+        },
+        "404": {
+            "description": "Not Found"            
+        },
+        "500": {
+            "description": "Internal Server Error"            
+        }
+    },
+    "paths": {
+        "/cars": {
+            "get": {
+                "tags": ["Cars"],
+                "summary": "Gets a list of cars.",
+                "response": {
+                    "200": {    
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ArrayofCars"
+                                }
+                            }
+                        }
+                    },
+                    "401": {"$ref": "#/components/responses/401"},
+                    "500": {"$ref": "#/components/responses/500"}
+                } 
+            },
+            "post": {
+                "tags": ["Cars"],
+                "summary": "Create car.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Cars"
+                            }
+                        }
+                    }
+                },
+                "response": {
+                    "200": {"$ref": "#/components/responses/200"},
+                    "400": {"$ref": "#/components/responses/400"},
+                    "401": {"$ref": "#/components/responses/401"},
+                    "500": {"$ref": "#/components/responses/500"}
+                }
+            }
+        },
+        "/cars/{id}": {
+            "get": {
+                "tags": ["Cars"],
+                "summary": "Get car by ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Car ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "a3d4e5f6-7a8b-9c0d-1e2f-3a4b5c6d7e8f"
+                        }
+                    }
+                ],
+                "response": {
+                    "200": {"$ref": "#/components/responses/200"},
+                    "400": {"$ref": "#/components/responses/400"},
+                    "401": {"$ref": "#/components/responses/401"},
+                    "500": {"$ref": "#/components/responses/500"}
+                }
+            },
+            "put": {
+                "tags": ["Cars"],
+                "summary": "Update car by ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Car ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "a3d4e5f6-7a8b-9c0d-1e2f-3a4b5c6d7e8f"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Cars"
+                            }
+                        }
+                    }
+                },
+                "response": {
+                    "200": {"$ref": "#/components/responses/200"},
+                    "400": {"$ref": "#/components/responses/400"},
+                    "401": {"$ref": "#/components/responses/401"},
+                    "500": {"$ref": "#/components/responses/500"}
+                }
+            },
+            "delete": {
+                "tags": ["Cars"],
+                "summary": "Delete car by ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Car ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "a3d4e5f6-7a8b-9c0d-1e2f-3a4b5c6d7e8f"
+                        }
+                    }
+                ],
+                "response": {
+                    "200": {"$ref": "#/components/responses/200"},
+                    "400": {"$ref": "#/components/responses/400"},
+                    "401": {"$ref": "#/components/responses/401"},
+                    "500": {"$ref": "#/components/responses/500"}
+                }
+            }
+        },
+        "/sellers": {
+            "get": {
+                "tags": ["Sellers"],
+                "summary": "Gets a list of sellers."
+            },
+            "post": {
+                "tags": ["Sellers"],
+                "summary": "Create seller.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Sellers"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sellers/{id}": {
+            "get": {
+                "tags": ["Sellers"],
+                "summary": "Get seller by ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Seller ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "a3d4e5f6-7a8b-9c0d-1e2f-3a4b5c6d7e8f"
+                        }
+                    }
+                ]
+            },
+            "put": {
+                "tags": ["Sellers"],
+                "summary": "Update seller by ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Seller ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "a3d4e5f6-7a8b-9c0d-1e2f-3a4b5c6d7e8f"
+                        }
+                    }
+                ]
+            },
+            "delete": {
+                "tags": ["Sellers"],
+                "summary": "Delete seller by ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Seller ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "a3d4e5f6-7a8b-9c0d-1e2f-3a4b5c6d7e8f"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

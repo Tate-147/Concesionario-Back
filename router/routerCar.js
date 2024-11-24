@@ -1,13 +1,13 @@
 import express from "express";
-import { getCarsCont, getCarCont, createCarCont, updateCarCont, deleteCarCont } from "../controller/controllerCar.js";
-import { isAdmin, isLogged } from "../middleware/authMiddleware.js";
+import { getCarsCont, getCarCont, getCarSellerCont, createCarCont, updateCarCont, deleteCarCont } from "../controller/controllerCar.js";
 
 const routerCars = express.Router();
 
 routerCars.get("/", getCarsCont);
-routerCars.get("/:id",isLogged, getCarCont);
-routerCars.post("/",isLogged,isAdmin, createCarCont);
-routerCars.put("/:id",isLogged,isAdmin, updateCarCont);
-routerCars.delete("/:id",isLogged,isAdmin, deleteCarCont);
+routerCars.get("/:id", getCarCont);
+routerCars.get("/seller/:id",getCarSellerCont); //Populate
+routerCars.post("/", createCarCont);
+routerCars.put("/:id", updateCarCont);
+routerCars.delete("/:id", deleteCarCont);
 
 export default routerCars;

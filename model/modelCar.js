@@ -8,7 +8,8 @@ const carSchema = new mongoose.Schema({
         year: { type: Number, required: true },
         description: { type: String, default : "" },
         price: { type: Number,default : 0 },
-        urlToImage: { type: String, required: true }
+        urlToImage: { type: String, required: true },
+        seller: { type: mongoose.Schema.Types.ObjectId, ref: 'Seller', required: true }
     });
     
 const Car = mongoose.model("Car", carSchema);
