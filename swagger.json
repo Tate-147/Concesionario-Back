@@ -141,11 +141,11 @@
                             "properties": {
                                 "status": {
                                     "type": "string",
-                                    "example": "fail"
+                                    "example": "success"
                                 },
                                 "message": {
                                     "type": "string",
-                                    "example": "Bad request"
+                                    "example": "car found"
                                 },
                                 "data": {
                                     "type": "object",
@@ -165,7 +165,7 @@
                             "properties": {
                                 "status": {
                                     "type": "string",
-                                    "example": "fail"
+                                    "example": "failed"
                                 },
                                 "message": {
                                     "type": "string",
@@ -188,6 +188,90 @@
                 "summary": "Gets a list of cars.",
                 "tags": ["Cars"],
                 "operationId": "getCars",
+                "parameters": [
+                    {
+                        "name": "brand",
+                        "in": "query",
+                        "description": "The brand of the car.",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "Mitsubishi"
+                        }
+                    },
+                    {
+                        "name": "model",
+                        "in": "query",
+                        "description": "The model of the car.",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "Montero"
+                        }
+                    },
+                    {
+                        "name": "minPrice",
+                        "in": "query",
+                        "description": "The minimum price of the car.",
+                        "required": false,
+                        "schema": {
+                            "type": "number",
+                            "example": "1000"
+                        }
+                    },
+                    {
+                        "name": "maxPrice",
+                        "in": "query",
+                        "description": "The maximum price of the car.",
+                        "required": false,
+                        "schema": {
+                            "type": "number",
+                            "example": "5000"
+                        }
+                    },
+                    {
+                        "name": "orderBy",
+                        "in": "query",
+                        "description": "The property to order the cars.",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": ["brand", "model", "color", "year", "price"],
+                            "example": "brand"
+                        }
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "description": "The order of the cars.",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": ["asc", "desc"],
+                            "example": "asc"
+                        }
+                    },
+                    { 
+                        "name": "page",
+                        "in": "query",
+                        "description": "The page number.",
+                        "required": false,
+                        "schema": {
+                            "type": "number",
+                            "example": "1"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "The number of cars per page.",
+                        "required": false,
+                        "schema": {
+                            "type": "number",
+                            "example": "10"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -202,7 +286,7 @@
                                         },
                                         "message": {
                                             "type": "string",
-                                            "example": "cars found"
+                                            "example": "car list"
                                         },
                                         "data": {
                                             "type": "array",

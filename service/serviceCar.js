@@ -1,9 +1,37 @@
 import Car from "../model/modelCar.js";
 import crypto from "crypto";
 
-export const getCars = async () => {
-    const cars = await Car.find();
-    return cars;
+export const getCars = async (brand, model, minPrice, maxPrice, orderby, order, offset, limit, page) => {
+    const filters = {};
+    if (brand) {
+        filters.brand = {$regex: brand, $options: "i"}
+    }
+    if (model) {
+        filters.model = {$regex: model, $options: "i"}
+    }
+    if(minPrice || maxPrice){
+        filters.price = {};
+        if(minPrice){
+            filters.price.$gte = minPrice;
+        }
+        if(maxPrice){
+            filters.price.$lte = maxPrice;
+        }
+    }
+    const sortOptions = {}
+    if(orderby){
+        sortOptions[orderby]= order === 'desc'?-1:1;
+    }  
+    const cars = await Car.find(filters).sort(sortOptions).skip(offset).limit(limit);
+    const totalCars = await Car.countDocuments(filters);
+    const totalPages = Math.ceil(totalCars / limit);
+    const pagination = {
+        cars: cars,
+        currentPage: parseInt(page),
+        totalPages: totalPages,
+        totalCars: totalCars
+    };
+    return pagination;
 };
 
 export const getCar = async (id) => {

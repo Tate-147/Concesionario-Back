@@ -2,10 +2,10 @@ import express from "express";
 import cors from "cors";
 import env from "dotenv";
 import mongoose from "mongoose";
-import routerCars from "./router/routerCar.js";
-import routerSellers from "./router/routerSeller.js";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "./swagger.json" with { type: "json" };
+import routerCars from "./router/routerCar.js";
+import routerSellers from "./router/routerSeller.js";
 
 env.config()
 const PORT = process.env.PORT || 3000;
