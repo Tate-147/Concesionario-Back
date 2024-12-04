@@ -1,13 +1,15 @@
 import express from "express";
-import { compressMW } from "../middleware/compressMW.js";
+import { mwCompress } from "../middleware/mwCompress.js";
+import { mwVal } from "../middleware/mwVal.js";
+import { valIdSeller, valSeller } from "../validations/valSeller.js";
 import { getSellersCont, getSellerCont, createSellerCont, updateSellerCont, deleteSellerCont } from "../controller/controllerSeller.js";
 
 const routerSellers = express.Router();
 
-routerSellers.get("/", compressMW, getSellersCont);
-routerSellers.get("/:id", getSellerCont);
-routerSellers.post("/", createSellerCont);
-routerSellers.put("/:id", updateSellerCont);
-routerSellers.delete("/:id", deleteSellerCont);
+routerSellers.get("/", mwCompress, getSellersCont);
+routerSellers.get("/:id", valIdSeller, mwVal, getSellerCont);
+routerSellers.post("/", valSeller, mwVal, createSellerCont);
+routerSellers.put("/:id", valIdSeller, valSeller, mwVal, updateSellerCont);
+routerSellers.delete("/:id", valIdSeller, mwVal, deleteSellerCont);
 
 export default routerSellers;
