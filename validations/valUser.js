@@ -1,10 +1,10 @@
 import { body, query, param } from "express-validator";
 
-export const valIdSeller = [
+export const valIdUser = [
     param("id").isMongoId().withMessage("Id must be a valid MongoID")
 ];
 
-export const valSeller = [
+export const valUser = [
     body("lastname").isString().withMessage("Lastname must be a valid string").isLength({min: 2, max: 25}).withMessage("Lastname must be at least 2 characters long and max 25"),
     body("name").isString().withMessage("Name must be a valid string").isLength({min: 2, max: 25}).withMessage("Name must be at least 2 characters long and max 25"),
     body("address").isString().withMessage("Address must be a valid string").isLength({min: 2, max: 50}).withMessage("Address must be at least 2 characters long and max 50"),

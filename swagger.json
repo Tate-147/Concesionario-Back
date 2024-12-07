@@ -3,7 +3,7 @@
     "info": {
         "title": "API RESTful - Concesionario de Autos",
         "version": "1.0.0",
-        "description": "Este proyecto es una API RESTful desarrollada con Node.js y Express. Permite realizar operaciones CRUD sobre dos entidades: una principal y una de soporte. El proyecto incluye autenticación, validación de datos y manejo de errores centralizado."
+        "description": "Este proyecto es una API RESTful desarrollada con Node.js y Express. Permite realizar operaciones CRUD sobre dos entidades: Users y Cars. El proyecto incluye autenticación, validación de datos y manejo de errores centralizado."
     },
     "servers": [
         {
@@ -17,6 +17,77 @@
     ],
     "components": {
         "schemas": {
+            "User": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The auto-generated id of the user.",
+                        "format": "objectId",
+                        "example": "67436c0ecc80bce34f5274d0"
+                    },
+                    "username": {
+                        "type": "string",
+                        "description": "The username of the user.",
+                        "example": "johndoe"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "The hash(password) of the user.",
+                        "example": "e234dsdom3k2kmdl3l43iwes9vjro44223m3n32kn5n2ksdo4"
+                    },
+                    "lastname": {
+                        "type": "string",
+                        "description": "The lastname of the user.",
+                        "example": "Doe"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the user.",
+                        "example": "John"
+                    },
+                    "adress": {
+                        "type": "string",
+                        "description": "The address of the user.",                        
+                        "example": "Street 123"
+                    },
+                    "postcode": {
+                        "type": "string",
+                        "description": "The postcode of the user.",
+                        "example": "12345"
+                    },
+                    "city": {
+                        "type": "string",
+                        "description": "The city of the user.",
+                        "example": "City"
+                    },
+                    "province": {
+                        "type": "string",
+                        "description": "The province of the user.",
+                        "example": "Province"
+                    },
+                    "country": {
+                        "type": "string",
+                        "description": "The country of the user.",
+                        "example": "Country"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "description": "The phone of the user.",
+                        "example": "123456789"
+                    },
+                    "cellphone": {
+                        "type": "string",
+                        "description": "The cellphone of the user.",
+                        "example": "123456789"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "The email of the user.",
+                        "example": "mail@example.com"
+                    }
+                }
+            },
             "Car": {
                 "type": "object",
                 "properties": {
@@ -61,72 +132,11 @@
                         "description": "The url of the image of the car.",
                         "example": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Mitsubishi_M…"
                     },
-                    "seller": {
-                        "type": "string",
-                        "description": "The id of the seller.",
+                    "user": {
+                        "type": "mongoose.Schema.Types.ObjectId",
+                        "description": "The id of the user.",
                         "format": "objectId",
                         "example": "67436c0ecc80bce34f5274d0"
-                    }
-                }
-            },
-            "Seller": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "string",
-                        "description": "The auto-generated id of the seller.",
-                        "format": "objectId",
-                        "example": "67436c0ecc80bce34f5274d0"
-                    },
-                    "lastname": {
-                        "type": "string",
-                        "description": "The lastname of the seller.",
-                        "example": "Doe"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the seller.",
-                        "example": "John"
-                    },
-                    "adress": {
-                        "type": "string",
-                        "description": "The address of the seller.",                        
-                        "example": "Street 123"
-                    },
-                    "postcode": {
-                        "type": "string",
-                        "description": "The postcode of the seller.",
-                        "example": "12345"
-                    },
-                    "city": {
-                        "type": "string",
-                        "description": "The city of the seller.",
-                        "example": "City"
-                    },
-                    "province": {
-                        "type": "string",
-                        "description": "The province of the seller.",
-                        "example": "Province"
-                    },
-                    "country": {
-                        "type": "string",
-                        "description": "The country of the seller.",
-                        "example": "Country"
-                    },
-                    "phone": {
-                        "type": "string",
-                        "description": "The phone of the seller.",
-                        "example": "123456789"
-                    },
-                    "cellphone": {
-                        "type": "string",
-                        "description": "The cellphone of the seller.",
-                        "example": "123456789"
-                    },
-                    "email": {
-                        "type": "string",
-                        "description": "The email of the seller.",
-                        "example": "mail@example.com"
                     }
                 }
             }
@@ -183,6 +193,233 @@
         }
     },
     "paths": {
+        "/users": {
+            "get": {
+                "summary": "Gets a list of users.",
+                "tags": ["Users"],
+                "operationId": "getUsers",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "users found"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{"$ref": "#/components/responses/500"}
+                }
+            },
+            "post": {
+                "summary": "Creates a new user.",
+                "tags": ["Users"],
+                "operationId": "createUser",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "user created"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{"$ref": "#/components/responses/400"},
+                    "500":{"$ref": "#/components/responses/500"}
+                }
+            }    
+        },
+        "/users/{id}": {
+            "get": {
+                "summary": "Gets a user by id.",
+                "tags": ["Users"],
+                "operationId": "getUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the user.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "objectId",
+                            "example": "67436c0ecc80bce34f5274d0"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "user found"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{"$ref": "#/components/responses/400"},    
+                    "500":{"$ref": "#/components/responses/500"}
+                }
+            },
+            "put": {
+                "summary": "Updates a user by id.",
+                "tags": ["Users"],
+                "operationId": "updateUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the user.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "objectId",
+                            "example": "67436c0ecc80bce34f5274d0"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "user updated"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{"$ref": "#/components/responses/400"},    
+                    "500":{"$ref": "#/components/responses/500"}
+                }
+            },
+            "delete": {
+                "summary": "Deletes a user by id.",
+                "tags": ["Users"],
+                "operationId": "deleteUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the user.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "objectId",
+                            "example": "67436c0ecc80bce34f5274d0"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "user deleted"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{"$ref": "#/components/responses/400"},    
+                    "500":{"$ref": "#/components/responses/500"}
+                }
+            }
+        },
         "/cars": {
             "get": {
                 "summary": "Gets a list of cars.",
@@ -493,282 +730,6 @@
                     "500":{"$ref": "#/components/responses/500"}
                 }
             }
-        },
-        "/cars/seller/{id}": {
-            "get": {
-                "summary": "Gets a car by id populating the seller.",
-                "tags": ["Cars"],
-                "operationId": "getCarSeller",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "The id of the car.",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "uuid",
-                            "example": "5b900eb1-639b-4164-87ad-d69546f91542"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "string",
-                                            "example": "success"
-                                        },
-                                        "message": {
-                                            "type": "string",
-                                            "example": "car found"
-                                        },
-                                        "data": {
-                                            "type": "object",
-                                            "$ref": "#/components/schemas/Car"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400":{"$ref": "#/components/responses/400"},
-                    "500":{"$ref": "#/components/responses/500"}    
-                }
-            }
-        },
-        "/sellers": {
-            "get": {
-                "summary": "Gets a list of sellers.",
-                "tags": ["Sellers"],
-                "operationId": "getSellers",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "string",
-                                            "example": "success"
-                                        },
-                                        "message": {
-                                            "type": "string",
-                                            "example": "sellers found"
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "$ref": "#/components/schemas/Seller"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "500":{"$ref": "#/components/responses/500"}
-                }
-            },
-            "post": {
-                "summary": "Creates a new seller.",
-                "tags": ["Sellers"],
-                "operationId": "createSeller",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Seller"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Created",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "string",
-                                            "example": "success"
-                                        },
-                                        "message": {
-                                            "type": "string",
-                                            "example": "seller created"
-                                        },
-                                        "data": {
-                                            "type": "object",
-                                            "$ref": "#/components/schemas/Seller"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400":{"$ref": "#/components/responses/400"},
-                    "500":{"$ref": "#/components/responses/500"}
-                }
-            }    
-        },
-        "/sellers/{id}": {
-            "get": {
-                "summary": "Gets a seller by id.",
-                "tags": ["Sellers"],
-                "operationId": "getSeller",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "The id of the seller.",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "objectId",
-                            "example": "67436c0ecc80bce34f5274d0"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "string",
-                                            "example": "success"
-                                        },
-                                        "message": {
-                                            "type": "string",
-                                            "example": "seller found"
-                                        },
-                                        "data": {
-                                            "type": "object",
-                                            "$ref": "#/components/schemas/Seller"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400":{"$ref": "#/components/responses/400"},    
-                    "500":{"$ref": "#/components/responses/500"}
-                }
-            },
-            "put": {
-                "summary": "Updates a seller by id.",
-                "tags": ["Sellers"],
-                "operationId": "updateSeller",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "The id of the seller.",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "objectId",
-                            "example": "67436c0ecc80bce34f5274d0"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Seller"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "string",
-                                            "example": "success"
-                                        },
-                                        "message": {
-                                            "type": "string",
-                                            "example": "seller updated"
-                                        },
-                                        "data": {
-                                            "type": "object",
-                                            "$ref": "#/components/schemas/Seller"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400":{"$ref": "#/components/responses/400"},    
-                    "500":{"$ref": "#/components/responses/500"}
-                }
-            },
-            "delete": {
-                "summary": "Deletes a seller by id.",
-                "tags": ["Sellers"],
-                "operationId": "deleteSeller",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "The id of the seller.",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "objectId",
-                            "example": "67436c0ecc80bce34f5274d0"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "string",
-                                            "example": "success"
-                                        },
-                                        "message": {
-                                            "type": "string",
-                                            "example": "seller deleted"
-                                        },
-                                        "data": {
-                                            "type": "object",
-                                            "$ref": "#/components/schemas/Seller"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400":{"$ref": "#/components/responses/400"},    
-                    "500":{"$ref": "#/components/responses/500"}
-                }
-            }
         }
     }
-
 }

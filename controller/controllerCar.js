@@ -1,4 +1,4 @@
-import { getCars, getCar, getCarSeller, createCar, updateCar, deleteCar } from "../service/serviceCar.js";
+import { getCars, getCar, createCar, updateCar, deleteCar } from "../service/serviceCar.js";
 
 export const getCarsCont = async (req, res) => {
     try {
@@ -25,26 +25,13 @@ export const getCarCont = async (req, res) => {
     }
 };
 
-export const getCarSellerCont = async (req, res) => {
-  try {
-      const id = req.params.id;
-      const car = await getCarSeller(id);
-      if(!car){
-          return res.status(400).json({status: "failed", menssage: "car not found", data:{}});
-      }
-      return res.status(200).json({status: "success", menssage: "car found", data:car});
-  } catch (error) {
-      return res.status(500).json({status: "failed", menssage: "server error", data:{}});
-  }
-}
-
 export const createCarCont = async (req, res) => {
     try {
-      const { brand, model, color, year, description, price, urlToImage, seller } = req.body;
-      if (!brand || !model || !color || !year || !description || !price || !urlToImage || !seller) {
+      const { brand, model, color, year, description, price, urlToImage, user } = req.body;
+      if (!brand || !model || !color || !year || !description || !price || !urlToImage || !user) {
         return res.status(400).json({status: "failed", menssage: "missing data", data:{}});
       }
-      const car = await createCar(brand, model, color, year, description, price, urlToImage, seller);
+      const car = await createCar(brand, model, color, year, description, price, urlToImage, user);
       return res.status(201).json({status: "success", menssage: "car created", data:car});
     } catch (error) {
       console.log(error);

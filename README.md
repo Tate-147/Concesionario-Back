@@ -1,6 +1,6 @@
 # Proy. de Programación Web - Aplicación SPA con React
 
-Este proyecto es una API RESTful desarrollada con Node.js y Express. Permite realizar operaciones CRUD sobre dos entidades: una principal y una de soporte. El proyecto incluye autenticación, validación de datos y manejo de errores centralizado.
+Este proyecto es una API RESTful desarrollada con Node.js y Express. Permite realizar operaciones CRUD sobre dos entidades: Users y Cars. El proyecto incluye autenticación, validación de datos y manejo de errores centralizado.
 
 ## Concesionario de Autos - BACK
 
@@ -8,34 +8,30 @@ Elegimos como proyecto el diseño de una página web para un concesionario de co
 
 ## Funcionalidades Principales 📋
 
-1. Endpoints Principales
-    * Login: Endpoint para inicio de sesión de usuarios.
-    * Registro: Endpoint para la creación de cuentas de usuario.
-    * CRUD para la Entidad Principal y Entidad de Soporte:
-        1. Entidad Principal: CARS.
-        2. Entidad de Soporte: SELLERS.
-2. Detalles de Implementación
-    * Entidad Principal y Entidad de Soporte:
-        1. Cada entidad debe tener al menos cuatro propiedades.
-        2. Las entidades deben estar relacionadas
-        3. Ejemplo de propiedades:
-            1. Noticia: título, contenido, fecha, descripción.
-            2. Autor: nombre, email, biografía, fechaNacimiento.
-        4. Ejemplo de relación entre entidades
-            1. Noticia conoce el id de su autor
-3. Endpoints Requeridos para CRUD:
-    * GET: Listar todos con paginación.
-    * GET: Listar uno con paginación.
-    * POST: Crear un nuevo registro.
-    * PUT: Modificar un registro existente.
-    * DELETE: Eliminar un registro existente.
-4. Autenticación y Autorización:
-    * Implementar JWT para proteger rutas del CRUD.
-    * Proteger las rutas para que solo usuarios autenticados puedan realizar operaciones CRUD.
-5. Validación de Datos:
-    * Uso de express-validator para validar datos de entrada.
-6. Logger:
-    * Incluir un sistema de logging básico con winston
+1. Endpoints Users:
+    * GET(/users): Lista todos los usuarios con filtros, ordenamientos y paginación. Tiene compresión GZIP.
+    * GET(/users/:id): Lista un usuario por id.
+    * POST(/users): Crear un usuario.
+    * PUT(/users/:id): Modificar un usuario por id.
+    * DELETE(/users/:id): Eliminar un usuario por id.
+2. Endpoints Cars:
+    * GET(/cars): Lista todos los autos con filtros, ordenamientos y paginación. Tiene compresión GZIP.
+    * GET(/cars/:id): Lista un auto por id(Populate User).
+    * POST(/cars): Crear un auto.
+    * PUT(/cars/:id): Modificar un auto por id.
+    * DELETE(/cars/:id): Eliminar un auto por id.
+3. Endpoints:
+    * POST(/users/login): Endpoint para inicio de sesión de usuarios.
+    * POST(/users/token): Endpoint para la renovación de token.
+4. Detalles de Implementación
+    * La Entidad Cars se vincula con Users a traves del campo "user".
+5. Autenticación y Autorización:
+    * [JSON Web Tokens](https://www.npmjs.com/package/jsonwebtoken) - Estándar abierto (RFC-7519) basado en JSON para crear un token que sirva para enviar datos entre aplicaciones o servicios y garantizar que sean válidos y seguros.
+    * Se protegieron rutas con JWT para que solo los usuarios con los permisos adecuados puedan utilizarlas.
+6. Validación de Datos:
+    * [Express-Validator](https://www.npmjs.com/package/express-validator) - proporcionan una serie de funciones para comprobar la validez de los datos que se pasan a su aplicación.
+7. Logger:
+    * [Winston](https://www.npmjs.com/package/winston) - Biblioteca para Node.js que proporciona un sistema de registro (logging) flexible y versátil.
 
 ## Tecnologías Utilizadas 🛠
 

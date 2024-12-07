@@ -35,16 +35,16 @@ export const getCars = async (brand, model, minPrice, maxPrice, orderby, order, 
 };
 
 export const getCar = async (id) => {
-    const car = await Car.findOne({id:id}); // no usamos el findById porque machea con el _id
+    const car = await Car.findOne({id:id}).populate("user"); // no usamos el findById porque machea con el _id y populate con el user
     return car;
 };
 
-export const getCarSeller = async (id) => {
-    const car = await Car.findOne({id:id}).populate("seller");
+export const getCarUser = async (id) => {
+    const car = await Car.findOne({id:id}).populate("user");
     return car;
 };
 
-export const createCar = async (brand, model, color, year, description, price, urlToImage, seller) => {
+export const createCar = async (brand, model, color, year, description, price, urlToImage, user) => {
     const car = {
         id: crypto.randomUUID(),
         brand: brand,
@@ -54,7 +54,7 @@ export const createCar = async (brand, model, color, year, description, price, u
         description: description,
         price: price,
         urlToImage: urlToImage,
-        seller: seller
+        user: user
     };
     const newCar = await Car.create(car);
     return newCar;

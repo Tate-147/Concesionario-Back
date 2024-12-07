@@ -23,5 +23,5 @@ export const valCar = [
     body("description").isString().withMessage("Description must be a valid string").isLength({min:1,max:300}).withMessage("Description must be at least 2 characters long and max 300"),
     body("price").isFloat().withMessage("Price must be a valid number").isLength({min: 1}).withMessage("Price must be at least 1 digit long"),
     body("urlToImage").isURL().withMessage("Image must be a valid URL"),
-    body("seller").isMongoId().withMessage("Seller must be a valid MongoID")
+    body("user").isMongoId().withMessage("User must be a valid MongoID")
 ];

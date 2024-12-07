@@ -1,23 +1,40 @@
 import express from "express";
-import cors from "cors";
 import env from "dotenv";
+import cors from "cors";
+import { logger } from "./config/winston.js";
+import routerUsers from "./router/routerUser.js";
+import routerCars from "./router/routerCar.js";
 import mongoose from "mongoose";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "./swagger.json" with { type: "json" };
-import routerCars from "./router/routerCar.js";
-import routerSellers from "./router/routerSeller.js";
 
+// Env
 env.config()
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
+// Express
 const app = express();
 
+// Json
 app.use(express.json());
-app.use(cors());
+
+// Cors
+app.use(cors(
+  {
+    origin: "*",
+    allowedHeaders: ["Content-Type", "Authorization","Token"],
+  }
+));
+
+// Logs
+app.use((req, res, next) => {
+  logger.info(`${req.method} ${req.url}`);
+  next();
+});
 
 // Routers
+app.use("/users", routerUsers);
 app.use("/cars", routerCars);
-app.use("/sellers", routerSellers);
 app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Database
@@ -37,4 +54,4 @@ app.use((req, res) => {
 // Server
 app.listen(PORT, () => {
     console.log(`listening on port ${PORT}`);
-})
+});
