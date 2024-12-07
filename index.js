@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(cors(
   {
     origin: "*",
-    allowedHeaders: ["Content-Type", "Authorization","Token"],
+    allowedHeaders: ["Content-Type", "Authorization","x-refresh-token"],
   }
 ));
 

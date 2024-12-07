@@ -43,3 +43,12 @@
 {"level":"info","message":"POST /users/token","timestamp":"2024-12-07 18:53:39"}
 {"level":"info","message":"POST /users/login","timestamp":"2024-12-07 18:57:18"}
 {"level":"info","message":"POST /users/token","timestamp":"2024-12-07 18:57:26"}
+{"level":"info","message":"POST /users/login","timestamp":"2024-12-07 19:28:42"}
+{"level":"info","message":"POST /users/token","timestamp":"2024-12-07 19:28:53"}
+{"level":"info","message":"POST /users/login","timestamp":"2024-12-07 19:29:46"}
+{"level":"info","message":"POST /users/token","timestamp":"2024-12-07 19:30:09"}
+{"level":"info","message":"POST /users/login","timestamp":"2024-12-07 19:32:19"}
+{"level":"info","message":"POST /users/token","timestamp":"2024-12-07 19:32:43"}
+{"level":"info","message":"POST /users/token","timestamp":"2024-12-07 19:33:33"}
+{"level":"info","message":"POST /users/login","timestamp":"2024-12-07 19:34:05"}
+{"level":"info","message":"POST /users/token","timestamp":"2024-12-07 19:34:28"}

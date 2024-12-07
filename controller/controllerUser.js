@@ -75,12 +75,13 @@ export const loginCont = async (req, res) => {
 
 export const tokenCont = async (req, res) => {
     try {
-        const token = req.headers["Token"]
-        if (!token) {
+        const accesstoken = req.headers["x-refresh-token"]
+        console.log(accesstoken);
+        if (!accesstoken) {
             return res.status(400).json({status: "failed", menssage: "missing refresh token", data:{}});
         }
-        const newtoken = await token(token);
-        return res.status(200).json({status: "success", menssage: "token refresh", data:{newtoken}});
+        const newrefreshtoken = await token(accesstoken);
+        return res.status(200).json({status: "success", menssage: "token refresh", data:{newrefreshtoken}});
     } catch (error) {
         console.log(error)
         return res.status(500).json({status: "failed", menssage: "server error", data:{}});
