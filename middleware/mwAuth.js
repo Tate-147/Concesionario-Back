@@ -1,11 +1,12 @@
 import jwt from "jsonwebtoken";
 
 export const mwAuth = (req, res, next) => {
-    const token = req.headers["authorization"];
-    if (!token) {
+    const accesstoken = req.headers["authorization"];
+    console.log(accesstoken);
+    if (!accesstoken) {
         return res.status(401).json({status: "failed", menssage: "unauthorized", data:{}});
     }
-    const tokenData = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
+    const tokenData = jwt.verify(accesstoken, process.env.JWT_ACCESS_SECRET);
     if (!tokenData) {
         return res.status(401).json({status: "failed", menssage: "unauthorized", data:{}});
     }

@@ -61,12 +61,12 @@ export const login = async (username, password) => {
     };
 };
 
-export const token = async (accessToken) => {
-    const user = jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET);
+export const token = async (refreshToken) => {
+    const user = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
     const userDB = await User.findOne({username: user.username});
     if(!userDB) {
         return -1;
     };
-    const refreshtoken = genRefreshToken({username:user.username,password: user.password, id: user._id});
-    return refreshtoken;
+    const accessToken = genAccessToken({username:user.username,password: user.password, id: user._id});
+    return accessToken;
 };
