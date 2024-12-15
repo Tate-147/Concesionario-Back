@@ -46,13 +46,23 @@
                         "description": "The name of the user.",
                         "example": "John"
                     },
-                    "adress": {
+                    "birthdate": {
+                        "type": "date",
+                        "description": "The birthdate of the user.",
+                        "example": "1990-01-01"
+                    },
+                    "addressname": {
                         "type": "string",
-                        "description": "The address of the user.",                        
-                        "example": "Street 123"
+                        "description": "The addressname of the user.",
+                        "example": "Street"
+                    },
+                    "addressnumber": {
+                        "type": "number",
+                        "description": "The addressnumber of the user.",
+                        "example": "123"
                     },
                     "postcode": {
-                        "type": "string",
+                        "type": "number",
                         "description": "The postcode of the user.",
                         "example": "12345"
                     },
@@ -72,12 +82,12 @@
                         "example": "Country"
                     },
                     "phone": {
-                        "type": "string",
+                        "type": "number",
                         "description": "The phone of the user.",
                         "example": "123456789"
                     },
                     "cellphone": {
-                        "type": "string",
+                        "type": "number",
                         "description": "The cellphone of the user.",
                         "example": "123456789"
                     },

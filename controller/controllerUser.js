@@ -25,11 +25,11 @@ export const getUserCont = async (req, res) => {
 
 export const createUserCont = async (req, res) => {
     try {
-      const { username, password, lastname, name, address, postcode, city, province, country, phone, cellphone, email } = req.body;
-      if (!username || !password || !lastname || !name || !address || !postcode || !city || !province || !country || !cellphone || !email) {
+      const { username, password, lastname, name, birthdate, addressname, addressnumber, postcode, city, province, country, phone, cellphone, email } = req.body;
+      if (!username || !password || !lastname || !name || !birthdate || !addressname || !addressnumber || !postcode || !city || !province || !country || !cellphone || !email) {
         return res.status(400).json({status: "failed", menssage: "missing data", data:{}});
       }
-      const user = await createUser(username, password, lastname, name, address, postcode, city, province, country, phone, cellphone, email);
+      const user = await createUser(username, password, lastname, name, birthdate, addressname, addressnumber, postcode, city, province, country, phone, cellphone, email);
       return res.status(201).json({status: "success", menssage: "user created", data:user});
     } catch (error) {
       console.log(error);
@@ -40,8 +40,8 @@ export const createUserCont = async (req, res) => {
 export const updateUserCont = async (req, res) => {
     try {
       const id = req.params.id;
-      const { lastname, name, address, postcode, city, province, country, phone, cellphone, email } = req.body;
-      const user = await updateUser(id, lastname, name, address, postcode, city, province, country, phone, cellphone, email);
+      const { lastname, name, birthdate, addressname, addressnumber, postcode, city, province, country, phone, cellphone, email } = req.body;
+      const user = await updateUser(id, lastname, name, birthdate, addressname, addressnumber, postcode, city, province, country, phone, cellphone, email);
       res.status(200).json({status: "success", menssage: "user updated", data:user});
     } catch (error) {
       return res.status(500).json({status: "failed", menssage: "user error", data:{}});

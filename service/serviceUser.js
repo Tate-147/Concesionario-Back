@@ -13,14 +13,16 @@ export const getUser = async (id) => {
     return user;
 };
 
-export const createUser = async (username, password, lastname, name, address, postcode, city, province, country, phone, cellphone, email) => {
+export const createUser = async (username, password, lastname, name, birthdate, addressname, addressnumber, postcode, city, province, country, phone, cellphone, email) => {
     const passhash = await bcrypt.hash(password, 10);
     const user = {
         username: username,
         password: passhash,
         lastname: lastname,
         name: name,
-        address: address,
+        birthdate: birthdate,
+        addressname: addressname,
+        addressnumber: addressnumber,
         postcode: postcode,
         city: city,
         province: province,
@@ -33,8 +35,8 @@ export const createUser = async (username, password, lastname, name, address, po
     return newUser;
 };
 
-export const updateUser = async(id, lastname, name, address, postcode, city, province, country, phone, cellphone, email) => {
-    const user = await User.findByIdAndUpdate(id, {lastname: lastname, name: name, address: address, postcode: postcode, city: city, province: province, country: country, phone: phone, cellphone: cellphone, email: email});
+export const updateUser = async(id, lastname, name, birthdate, addressname, addressnumber, postcode, city, province, country, phone, cellphone, email) => {
+    const user = await User.findByIdAndUpdate(id, {lastname: lastname, name: name, birthdate: birthdate, addressname: addressname, addressnumber: addressnumber, postcode: postcode, city: city, province: province, country: country, phone: phone, cellphone: cellphone, email: email});
     return user;
 };
 

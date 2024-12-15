@@ -1,3 +1,4 @@
+import req from "express/lib/request";
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
@@ -5,13 +6,15 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     lastname: { type: String, required: true },
     name: { type: String, required: true },
-    address: { type: String },
-    postcode: { type: String },
+    birthdate: { type: Date, required: true },
+    addressname: { type: String },
+    addressnumber: { type: Number },
+    postcode: { type: Number },
     city: { type: String },
     province: { type: String },
     country: { type: String },
-    phone: { type: String},
-    cellphone: { type: String },
+    phone: { type: Number},
+    cellphone: { type: Number, required: true },
     email: { type: String, required: true }
 })
 
