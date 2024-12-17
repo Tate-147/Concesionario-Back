@@ -61,11 +61,11 @@ export const deleteUserCont = async (req, res) => {
 export const loginCont = async (req, res) => {
     try {
         const { username, password } = req.body;
-        const { accesstoken, refreshtoken } = await login(username, password);
+        const { userId, accessToken, refreshToken } = await login(username, password);
         if (!accesstoken || !refreshtoken) {
             return res.status(400).json({status: "failed", menssage: "credentials error", data:{}});
         }else{
-            return res.status(200).json({status: "success", menssage: "user logued", data:{accesstoken, refreshtoken}});
+            return res.status(200).json({status: "success", menssage: "user logued", data:{userId, accessToken, refreshToken}});
         }
     } catch (error) {
         console.log(error)

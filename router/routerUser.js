@@ -9,7 +9,7 @@ const routerUsers = express.Router();
 
 routerUsers.get("/", mwAuth, mwCompress, getUsersCont);
 routerUsers.get("/:id", mwAuth, valIdUser, mwVal, getUserCont);
-routerUsers.post("/", valUser, mwVal, createUserCont);
+routerUsers.post("/create", valUser, mwVal, createUserCont);
 routerUsers.put("/:id", mwAuth, valIdUser, valUser, mwVal, updateUserCont);
 routerUsers.delete("/:id", mwAuth, valIdUser, mwVal, deleteUserCont);
 

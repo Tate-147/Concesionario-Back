@@ -55,9 +55,10 @@ export const login = async (username, password) => {
     if(!passmatch) {
         return -1;
     };
+    const userId = user._id;
     const accessToken = genAccessToken({username,password: user.password, id: user._id});
     const refreshToken = genRefreshToken({username,password: user.password, id: user._id});
-    return {accesstoken: accessToken, refreshtoken: refreshToken};
+    return {userId: userId, accessToken: accessToken, refreshToken: refreshToken};
     } catch (error) {
         console.log(error);
     };
