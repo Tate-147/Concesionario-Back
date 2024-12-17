@@ -2,9 +2,9 @@ import { getCars, getCar, createCar, updateCar, deleteCar } from "../service/ser
 
 export const getCarsCont = async (req, res) => {
     try {
-      const { brand, model, minPrice, maxPrice, orderby, order, limit=10, page=1 } = req.query;
+      const { user, brand, model, minPrice, maxPrice, orderby, order, limit=10, page=1 } = req.query;
       const offset = (page - 1) * limit;
-      const cars = await getCars(brand, model, minPrice, maxPrice, orderby, order, offset, limit, page);
+      const cars = await getCars(user, brand, model, minPrice, maxPrice, orderby, order, offset, limit, page);
       res.status(200).json({status: "success", menssage: "car list", data:cars});
     } catch (error) {
       console.log(error);

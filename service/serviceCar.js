@@ -1,8 +1,11 @@
 import Car from "../model/modelCar.js";
 import crypto from "crypto";
 
-export const getCars = async (brand, model, minPrice, maxPrice, orderby, order, offset, limit, page) => {
+export const getCars = async (user, brand, model, minPrice, maxPrice, orderby, order, offset, limit, page) => {
     const filters = {};
+    if (user) {
+        filters.user = {$regex: user, $options: "i"}
+    }
     if (brand) {
         filters.brand = {$regex: brand, $options: "i"}
     }
