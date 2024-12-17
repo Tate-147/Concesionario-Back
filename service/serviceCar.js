@@ -4,7 +4,7 @@ import crypto from "crypto";
 export const getCars = async (user, brand, model, minPrice, maxPrice, orderby, order, offset, limit, page) => {
     const filters = {};
     if (user) {
-        filters.user = {$regex: user, $options: "i"}
+        filters.user = {$regex: _Id, $options: "i"}
     }
     if (brand) {
         filters.brand = {$regex: brand, $options: "i"}
