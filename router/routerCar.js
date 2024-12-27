@@ -7,8 +7,8 @@ import { getCarsCont, getCarCont, createCarCont, updateCarCont, deleteCarCont } 
 
 const routerCars = express.Router();
 
-routerCars.get("/", mwCompress, valGetCar, mwVal, getCarsCont);
-routerCars.get("/:id", valIdCar, mwVal, getCarCont);
+routerCars.get("/", mwCompress, getCarsCont);
+routerCars.get("/:id", getCarCont);
 routerCars.post("/", mwAuth, valCar, mwVal,createCarCont);
 routerCars.put("/:id", mwAuth, valIdCar, valCar,mwVal, updateCarCont);
 routerCars.delete("/:id", mwAuth, valIdCar, mwVal, deleteCarCont);

@@ -4,7 +4,7 @@ import crypto from "crypto";
 export const getCars = async (user, brand, model, minPrice, maxPrice, orderby, order, offset, limit, page) => {
     const filters = {};
     if (user) {
-        filters.user = {$regex: _Id, $options: "i"}
+        filters.user = user
     }
     if (brand) {
         filters.brand = {$regex: brand, $options: "i"}
@@ -39,11 +39,6 @@ export const getCars = async (user, brand, model, minPrice, maxPrice, orderby, o
 
 export const getCar = async (id) => {
     const car = await Car.findOne({id:id}).populate("user"); // no usamos el findById porque machea con el _id y populate con el user
-    return car;
-};
-
-export const getCarUser = async (id) => {
-    const car = await Car.findOne({id:id}).populate("user");
     return car;
 };
 
