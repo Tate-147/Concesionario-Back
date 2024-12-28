@@ -52,7 +52,7 @@ Elegimos como proyecto el diseño de una página web para un concesionario de co
 
 ## Estructura del Proyecto 📄
 
-{foto de los directorios}
+![Estructura del proyecto](/img/Estructura.jpg "Estructura del Proyecto.")
 
 ## Instrucciones de Uso 🔧
 
@@ -87,7 +87,8 @@ Para iniciar un servidor de desarrollo
 
 ## Imágenes de la aplicación
 
-![This is an alt text.](/image/sample.webp "This is a sample image.")
+![Documentación del proyecto](/img/Documentacion.jpg "Documentación del Proyecto.")
+![Esquemas del proyecto](/img/Esquemas.jpg "Esquemas del Proyecto.")
 
 ## Contribuidores ✒️
 

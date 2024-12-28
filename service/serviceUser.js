@@ -35,9 +35,26 @@ export const createUser = async (username, password, lastname, name, birthdate, 
     return newUser;
 };
 
-export const updateUser = async(id, lastname, name, birthdate, addressname, addressnumber, postcode, city, province, country, phone, cellphone, email) => {
-    const user = await User.findByIdAndUpdate(id, {lastname: lastname, name: name, birthdate: birthdate, addressname: addressname, addressnumber: addressnumber, postcode: postcode, city: city, province: province, country: country, phone: phone, cellphone: cellphone, email: email});
-    return user;
+export const updateUser = async(id, username, password, lastname, name, birthdate, addressname, addressnumber, postcode, city, province, country, phone, cellphone, email) => {
+    const passhash = await bcrypt.hash(password, 10);
+    const user = {
+        username: username,
+        password: passhash,
+        lastname: lastname,
+        name: name,
+        birthdate: birthdate,
+        addressname: addressname,
+        addressnumber: addressnumber,
+        postcode: postcode,
+        city: city,
+        province: province,
+        country: country,
+        phone: phone,
+        cellphone: cellphone,
+        email: email
+    };
+    const newUser = await User.findByIdAndUpdate(id, user);
+    return newUser;
 };
 
 export const deleteUser = async (id) => {

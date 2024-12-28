@@ -40,8 +40,8 @@ export const createUserCont = async (req, res) => {
 export const updateUserCont = async (req, res) => {
     try {
       const id = req.params.id;
-      const { lastname, name, birthdate, addressname, addressnumber, postcode, city, province, country, phone, cellphone, email } = req.body;
-      const user = await updateUser(id, lastname, name, birthdate, addressname, addressnumber, postcode, city, province, country, phone, cellphone, email);
+      const { username, password,lastname, name, birthdate, addressname, addressnumber, postcode, city, province, country, phone, cellphone, email } = req.body;
+      const user = await updateUser(id, username, password, lastname, name, birthdate, addressname, addressnumber, postcode, city, province, country, phone, cellphone, email);
       res.status(200).json({status: "success", menssage: "user updated", data:user});
     } catch (error) {
       return res.status(500).json({status: "failed", menssage: "user error", data:{}});
